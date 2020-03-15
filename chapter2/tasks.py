@@ -6,12 +6,15 @@ from datetime import datetime
 
 from taskmanager import TaskManager
 
+
 def valid_date(d):
+    """ Checks if passed value is valid date in isoformat. """
     try:
         return datetime.fromisoformat(d)
     except ValueError:
         msg = f'Not a valid date: "{d}".'
         raise argparse.ArgumentTypeError(msg)
+
 
 def main():
     # top-level parser
@@ -21,17 +24,42 @@ def main():
     # subparser for the "create" command
     create_parser = subparsers.add_parser('add', help='create new task')
     create_parser.set_defaults(action='add')
-    create_parser.add_argument('--name', type=str, required=True, help='name of the task', metavar='')
-    create_parser.add_argument('--deadline', type=valid_date, help='task\'s deadline in ISO format (yyyy-mm-dd)', metavar='')
-    create_parser.add_argument('--description', type=str, help='description of the task', metavar='')
+    create_parser.add_argument(
+        '--name',
+        type=str,
+        required=True,
+        help='name of the task',
+        metavar='')
+    create_parser.add_argument(
+        '--deadline',
+        type=valid_date,
+        help='task\'s deadline in ISO format (yyyy-mm-dd)',
+        metavar='')
+    create_parser.add_argument(
+        '--description',
+        type=str,
+        help='description of the task',
+        metavar='')
 
     # subparser for the "update" command
     update_parser = subparsers.add_parser('update', help='update task')
     update_parser.set_defaults(action='update')
     update_parser.add_argument('TASK_HASH', help='Task identifier')
-    update_parser.add_argument('--name', type=str, help='name of the task', metavar='')
-    update_parser.add_argument('--deadline', type=valid_date, help='task\'s deadline  in ISO format (yyyy-mm-dd)', metavar='')
-    update_parser.add_argument('--description', type=str, help='description of the task', metavar='')
+    update_parser.add_argument(
+        '--name',
+        type=str,
+        help='name of the task',
+        metavar='')
+    update_parser.add_argument(
+        '--deadline',
+        type=valid_date,
+        help='task\'s deadline  in ISO format (yyyy-mm-dd)',
+        metavar='')
+    update_parser.add_argument(
+        '--description',
+        type=str,
+        help='description of the task',
+        metavar='')
 
     # subparser for the "delete" command
     delete_parser = subparsers.add_parser('delete', help='delete task')
@@ -52,7 +80,10 @@ def main():
     if args.action == "add":
         task_manager.add_task(args.name, args.deadline, args.description)
     elif args.action == "update":
-        task_manager.update_task(args.TASK_HASH, args.name, args.deadline, args.description)
+        task_manager.update_task(
+            args.TASK_HASH,
+            args.name,
+            args.deadline,args.description) 
     elif args.action == "delete":
         task_manager.delete_task(args.TASK_HASH)
     elif args.action == "list":
