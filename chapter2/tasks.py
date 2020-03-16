@@ -18,7 +18,9 @@ def valid_date(d):
 
 def main():
     # top-level parser
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description='Manage your tasks. Multi-word values'
+        ' must be encased in quotes, like "that".')
     subparsers = parser.add_subparsers()
 
     # subparser for the "create" command
@@ -28,7 +30,7 @@ def main():
         '--name',
         type=str,
         required=True,
-        help='name of the task',
+        help='name of the task (required)',
         metavar='')
     create_parser.add_argument(
         '--deadline',
@@ -83,7 +85,8 @@ def main():
         task_manager.update_task(
             args.TASK_HASH,
             args.name,
-            args.deadline,args.description) 
+            args.deadline,
+            args.description)
     elif args.action == "delete":
         task_manager.delete_task(args.TASK_HASH)
     elif args.action == "list":
