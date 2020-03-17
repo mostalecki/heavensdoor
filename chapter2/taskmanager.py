@@ -122,10 +122,15 @@ class TaskManager():
             print('-' * 80)
         elif mode == "today":
             today = datetime.today().date()
-            for task in self.tasks:
-                if task.deadline and task.deadline.date() == today:
+            todays_tasks = list(filter(
+                lambda t: t.deadline and t.deadline.date() == today,
+                self.tasks))
+            if todays_tasks:
+                for task in todays_tasks:
                     print(task.formatted_string)
-            print('-' * 80)
+                print('-' * 80)
+            else:
+                print('No tasks for today.')
 
     def get_task(self, task_hash):
         """ Returns task with given hash."""

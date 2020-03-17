@@ -25,7 +25,7 @@ def valid_name(name):
 def main():
     # top-level parser
     parser = argparse.ArgumentParser(
-        description='Manage your tasks. Multi-word values'
+        epilog='Multi-word values'
         ' must be encased in quotes, like "that".')
     subparsers = parser.add_subparsers()
 
