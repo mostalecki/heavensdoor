@@ -80,7 +80,13 @@ class TaskManager():
             self.tasks = []
 
     def __del__(self):
-        self.save_tasks()
+        if self.tasks:
+            self.save_tasks()
+        else:
+            try:
+                os.remove('task_storage.json')
+            except OSError:
+                pass
 
     def add_task(self, name, deadline, description):
         """ Creates new task and adds it to self.tasks list."""
