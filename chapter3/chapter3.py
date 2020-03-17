@@ -36,4 +36,5 @@ if __name__ == '__main__':
 
     print(f'{len(final_nums)} numbers meet the given criteria')
 
-    print(final_nums)
+    if input('Print numbers? (y/n): ') == 'y':
+        print(final_nums)
