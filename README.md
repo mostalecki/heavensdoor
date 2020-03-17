@@ -79,3 +79,10 @@ To run the script, simply type:
 python chapter3.py
 ``` 
 in console, and script will print how many numbers meet the given criteria along with list containg all the numbers.
+
+---
+Tested on python 3.6, 3.7, 3.8
+```diff
+- Chapter2 won't work with python 3.6!
+- Script uses datetime.fromisoformat() method which was introduced in python 3.7.
+```
