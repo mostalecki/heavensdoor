@@ -7,13 +7,19 @@ from datetime import datetime
 from taskmanager import TaskManager
 
 
-def valid_date(d):
+def valid_date(date):
     """ Checks if passed value is valid date in isoformat. """
     try:
-        return datetime.fromisoformat(d)
+        return datetime.fromisoformat(date)
     except ValueError:
-        msg = f'Not a valid date: "{d}".'
+        msg = f'Not a valid date: "{date}".'
         raise argparse.ArgumentTypeError(msg)
+
+def valid_name(name):
+    """ Checks if task's name is not longer than 20 characters. """
+    if len(name) > 20:
+        raise argparse.ArgumentTypeError("Maximum length is 20 characters.")
+    return name
 
 
 def main():
@@ -23,14 +29,14 @@ def main():
         ' must be encased in quotes, like "that".')
     subparsers = parser.add_subparsers()
 
-    # subparser for the "create" command
+    # subparser for the "add" command
     create_parser = subparsers.add_parser('add', help='create new task')
     create_parser.set_defaults(action='add')
     create_parser.add_argument(
         '--name',
-        type=str,
+        type=valid_name,
         required=True,
-        help='name of the task (required)',
+        help='name of the task (required, max. 20 characters)',
         metavar='')
     create_parser.add_argument(
         '--deadline',
